@@ -34,7 +34,7 @@ bool str_is_digit(const std::string& s)
 {
     for (std::string::const_iterator it = s.begin(); it != s.end(); ++it) 
     {
-        if (!isdigit(*it)) 
+        if (!isdigit(*it))
             return true;
     }
     return false;
@@ -73,10 +73,34 @@ int check_line(std::string line, std::string &date, char &sep, float &val)
         return(1);
     }
     if((iss >> check))
+    {
         std::cerr << "Error: bad input => " << line << std::endl;
+        return 1;
+    }
     if(check_values(date, val))
+    {
         std::cerr << "Error: bad input => " << line << std::endl;
+        return 1;
+    }
     return(0);
+}
+
+double  BitcoinExchange::get_price(std::string date_str) 
+{
+    std::map<std::string, double>::const_iterator it = database.find(date_str);
+    if (it != database.end())
+        return it->second;
+    else 
+    {
+        std::map<std::string, double>::const_iterator lower_it = database.lower_bound(date_str);
+        if (lower_it == database.begin())
+            return 0.0;
+        else 
+        {
+            --lower_it;
+            return lower_it->second;
+        }
+    }
 }
 void BitcoinExchange::exchange(std::string file)
 {
@@ -101,6 +125,12 @@ void BitcoinExchange::exchange(std::string file)
         {}
         if(check_line(line, date, sep, val))
             continue;
+        double prix = get_price(date);
+        double exchange = 0.0;
+        if (prix > 0.0) {
+            exchange = val * prix;
+        }
+        std::cout << date << " => " << val << " = " << exchange << std::endl;
     }
 }
 int main(int ac, char **av)
