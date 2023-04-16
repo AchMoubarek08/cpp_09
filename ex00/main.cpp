@@ -30,16 +30,28 @@ BitcoinExchange::BitcoinExchange(std::string filename)
     infile.close();
 }
 
+bool str_is_digit(const std::string& s) 
+{
+    for (std::string::const_iterator it = s.begin(); it != s.end(); ++it) 
+    {
+        if (!isdigit(*it)) 
+            return true;
+    }
+    return false;
+}
+
 int check_values(std::string &date, float &val)
 {
     int year;
     int mounth;
     int day;
+    if(str_is_digit(date.substr(0, 4)) || str_is_digit(date.substr(5, 2)) || str_is_digit(date.substr(8, 2)))
+        return(1);
     try
     {
     year = std::stoi(date.substr(0, 4));
-    mounth = std::stoi(date.substr(6, 7));
-    day = std::stoi(date.substr(8, 9));
+    mounth = std::stoi(date.substr(5, 2));
+    day = std::stoi(date.substr(8, 2));
     }
     catch(std::exception &e)
     {}
@@ -47,7 +59,7 @@ int check_values(std::string &date, float &val)
         return (1);
     if(val < 0 || val > 1000)
         return(1);
-    if(year < 2009 || year > 2022 || mounth > 12 || mounth < 0 || day < 1 ||  day > 31)
+    if(year < 2009 || year > 2022 || mounth > 12 || mounth < 1 || day < 1 ||  day > 31)
         return(1);
     return(0);
 }
@@ -87,7 +99,8 @@ void BitcoinExchange::exchange(std::string file)
         }
         catch(std::exception &e)
         {}
-        check_line(line, date, sep, val);
+        if(check_line(line, date, sep, val))
+            continue;
     }
 }
 int main(int ac, char **av)
