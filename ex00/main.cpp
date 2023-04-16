@@ -58,7 +58,12 @@ int check_values(std::string &date, float &val)
     if (date.size() != 10 || date[4] != '-' || date[7] != '-')
         return (1);
     if(val < 0 || val > 1000)
-        return(1);
+    {
+        if(val < 0)
+            return(2);
+        else if(val > 1000)
+            return(3);
+    }
     if(year < 2009 || year > 2022 || mounth > 12 || mounth < 1 || day < 1 ||  day > 31)
         return(1);
     return(0);
@@ -77,7 +82,17 @@ int check_line(std::string line, std::string &date, char &sep, float &val)
         std::cerr << "Error: bad input => " << line << std::endl;
         return 1;
     }
-    if(check_values(date, val))
+    if(check_values(date, val) == 2)
+    {
+        std::cerr << "Error: not a positive number." << std::endl;
+        return 1;
+    }
+    else if(check_values(date, val) == 3)
+    {
+        std::cerr << "Error: too large a number." << std::endl;
+        return 1;
+    }
+    else if(check_values(date, val))
     {
         std::cerr << "Error: bad input => " << line << std::endl;
         return 1;
