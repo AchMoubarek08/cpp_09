@@ -1,4 +1,4 @@
-CC = c++ -Wall -Wextra -Werror -std=c++98 -g -o btc
+CC = g++ -Wall -Wextra -Werror -std=c++11 -g -o btc
 SRC = main.cpp BitcoinExchange.cpp
 
 NAME = btc

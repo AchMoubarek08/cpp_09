@@ -1,7 +1,7 @@
-CC = c++ -Wall -Wextra -Werror -std=c++98 -g -o btc
-SRC = main.cpp BitcoinExchange.cpp
+CC = c++ -Wall -Wextra -Werror -std=c++98 -g -o RPN
+SRC = main.cpp
 
-NAME = btc
+NAME = RPN
 
 all: $(NAME)
 
