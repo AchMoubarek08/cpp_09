@@ -52,7 +52,7 @@ void    check_args(std::string expr)
         }
     }
 }
-int calcul_rpn(std::string exp) 
+int calcul_rpn(std::string exp)
 {
     std::stack<int> stack;
     int num1, num2;
@@ -60,7 +60,7 @@ int calcul_rpn(std::string exp)
         if (isdigit(exp[i]))
         {
             stack.push(exp[i] - '0');
-        } 
+        }
         else if (exp[i] == '+' || exp[i] == '-' || exp[i] == '*' || exp[i] == '/') 
         {
             num2 = stack.top();
@@ -68,7 +68,7 @@ int calcul_rpn(std::string exp)
             num1 = stack.top();
             stack.pop();
 
-            switch (exp[i]) 
+            switch (exp[i])
             {
                 case '+':
                 {

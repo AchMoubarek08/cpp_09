@@ -1,7 +1,7 @@
-CC = c++ -Wall -Wextra -Werror -std=c++98 -g -o btc
-SRC = main.cpp BitcoinExchange.cpp
+CC = c++ -Wall -Wextra -Werror -std=c++98 -g -o PmergeMe
+SRC = main.cpp PmergeMe.cpp
 
-NAME = btc
+NAME = PmergeMe
 
 all: $(NAME)
 
