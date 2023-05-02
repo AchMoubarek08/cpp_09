@@ -22,5 +22,6 @@ class BitcoinExchange {
 		void exchange(std::string input_filename);
 };
 
+int check_line(std::string line, std::string &date, char &sep, float &val);
 
 #endif
