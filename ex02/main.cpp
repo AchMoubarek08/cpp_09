@@ -61,7 +61,7 @@ int main(int ac, char **av)
 {
     if(ac <= 1)
     {
-        std::cout << "two args or more" << std::endl;
+        std::cout << "Error :two args or more" << std::endl;
         return(1);
     }
     if(check_args(ac, av))
